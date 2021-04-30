@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=G-XYN2J3TDST"
+		></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date()), gtag('config', 'G-XYN2J3TDST');
+		</script>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+		<meta name="msapplication-TileColor" content="#ffc40d" />
+		<meta name="theme-color" content="#f1c40f" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Muli:400,700|Merriweather:400,700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>AWS Transcribe JSON to SRT | Apoorv Blog</title>
+		<style>
+			:root {
+				--color-black: #000;
+				--color-black-rgb: 0, 0, 0;
+				--color-link: #c0392b;
+				--color-white: #fff;
+				--color-primary: #0054a8;
+				--dark-gray: #999;
+				--light-gray: #eee;
+				--color-danger: #721c24;
+				--color-success: #155724;
+				--color-danger-bg: #f8d7da;
+				--color-success-bg: #d4edda;
+			}
+			*,
+			*::after,
+			*::before {
+				margin: 0;
+				padding: 0;
+				box-sizing: inherit;
+			}
+			*:focus {
+				border: 4px solid var(--color-black);
+			}
+			html {
+				box-sizing: border-box;
+				font-size: 62.5%;
+			}
+			@media screen and (max-width: 75em) {
+				html {
+					font-size: 50%;
+				}
+			}
+			@media screen and (max-width: 56.25em) {
+				html {
+					font-size: 37.5%;
+				}
+			}
+			@media screen and (max-width: 37.5em) {
+				html {
+					font-size: 25%;
+				}
+			}
+			@media screen and (min-width: 112.5em) {
+				html {
+					font-size: 75%;
+				}
+			}
+			.container {
+				margin: 3rem auto;
+				max-width: 96rem;
+				padding: 0 2rem;
+			}
+			ol,
+			ul {
+				list-style-position: inside;
+				margin: 1.8rem 0;
+				letter-spacing: 0.05em;
+			}
+			h1 {
+				margin: 1.6rem 0;
+			}
+			h2 {
+				margin: 1.5rem 0;
+			}
+			h3 {
+				margin: 1.4rem 0;
+			}
+			p {
+				margin: 1.8rem 0;
+				letter-spacing: 0.05em;
+			}
+			button {
+				padding: 1rem 2rem;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+			button:disabled {
+				background-color: var(--light-gray);
+				color: var(--dark-gray);
+				cursor: not-allowed;
+			}
+			figcaption {
+				font-size: 16px;
+			}
+			body {
+				font-family: Muli, sans-serif;
+			}
+			h1 {
+				font-family: Merriweather, serif;
+				font-size: 20px;
+				font-size: max(20px, 4rem);
+			}
+			h2 {
+				font-size: 18px;
+				font-size: max(18px, 3rem);
+			}
+			h3 {
+				font-size: 16px;
+				font-size: max(16px, 2.8rem);
+			}
+			p,
+			li,
+			button {
+				font-size: 16px;
+				font-size: max(16px, 2rem);
+			}
+			.link {
+				color: #c0392b;
+				text-decoration: none;
+			}
+			.link:focus,
+			.link:hover {
+				text-decoration: underline;
+			}
+			.footer__link {
+				color: #c0392b;
+				text-decoration: none;
+			}
+			.footer__link:focus,
+			.footer__link:hover {
+				text-decoration: underline;
+			}
+			.footer__link:focus,
+			.footer__link:hover {
+				text-decoration: underline;
+			}
+			.nav-list {
+				list-style: none;
+				display: flex;
+				justify-content: space-between;
+			}
+			.nav-list .nav-item .nav-link {
+				color: #c0392b;
+				text-decoration: none;
+				padding: 2rem;
+			}
+			.nav-list .nav-item .nav-link:focus,
+			.nav-list .nav-item .nav-link:hover {
+				text-decoration: underline;
+			}
+			.nav-list .nav-item .nav-link:hover,
+			.nav-list .nav-item .nav-link:focus {
+				text-decoration: underline;
+			}
+			.nav-list .logo {
+				font-size: 3.5rem;
+			}
+			.io-textarea {
+				width: 100%;
+				height: 40vh;
+				margin: 2rem 0;
+			}
+			.params {
+				margin: 2rem 0;
+				font-size: 16px;
+				font-size: max(16px, 2rem);
+			}
+			.params-checkbox {
+				margin-right: 1rem;
+				width: 16px;
+				height: 16px;
+			}
+			.params-input {
+				margin: 0 1rem;
+				font-size: 18px;
+				padding: 5px;
+				width: 60px;
+			}
+		</style>
+		<script type="application/ld+json">
+			[
+				{
+					"@context": "https://schema.org",
+					"@type": "BreadcrumbList",
+					"itemListElement": [
+						{
+							"@type": "ListItem",
+							"position": 1,
+							"name": "Home",
+							"item": "https://apoorv.blog/"
+						},
+						{
+							"@type": "ListItem",
+							"position": 2,
+							"name": "AWS Transcribe JSON to SRT"
+						}
+					]
+				}
+			]
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<header class="body-header">
+				<nav class="navigation">
+					<ul class="nav-list">
+						<li class="nav-item logo">Apoorv Blog</li>
+						<li class="nav-item" id="my-account" hidden>
+							<a href="/my-account/" class="nav-link">My Account</a>
+						</li>
+						<li class="nav-item" id="sign-out" hidden>
+							<button id="sign-out-btn" class="btn__danger">Sign Out</button>
+						</li>
+					</ul>
+				</nav>
+			</header>
+			<main>
+				<article>
+					<header><h1>AWS Transcribe JSON to SRT</h1></header>
+					<p>
+						The output from AWS transcribe is in JSON format. But YouTube and
+						Vimeo cannot use JSON subtitles. So with following tool you can
+						generate basic subtitle format SRT from AWS Transcribe JSON. Just
+						paste the JSON in the box below.
+					</p>
+					<textarea id="json-input" class="io-textarea"></textarea>
+					<div class="params">
+						<input
+							type="checkbox"
+							id="word-break"
+							checked
+							class="params-checkbox"
+						/>
+						Break after
+						<input type="number" id="words" value="10" class="params-input" />
+						Words
+					</div>
+					<div class="params">
+						<input
+							type="checkbox"
+							id="subtitle-split"
+							checked
+							class="params-checkbox"
+						/>Split subtitle into
+						<input
+							type="number"
+							id="split-limit"
+							value="2"
+							class="params-input"
+						/>
+						lines
+					</div>
+					<button id="convert">1. Convert to SRT</button>
+					<div>
+						<label for="searchText">Search Text</label>
+						<input type="text" id="searchText" />
+					</div>
+					<div>
+						<label for="replaceText">Replace Text</label>
+						<input type="text" id="replaceText" />
+					</div>
+					<button id="replace-first">Replace first</button>
+					<button id="replace-all">Replace All</button>
+					<button id="convert-download">2. Download Edited SRT file</button>
+					<textarea id="srt-output" class="io-textarea"></textarea>
+					<p>
+						Inspired by
+						<a href="https://www.yash.info/aws-srt-creator.htm" class="link"
+							>Yash blog</a
+						>
+					</p>
+					<p>Compatible with following platforms</p>
+					<ul>
+						<li>YouTube</li>
+						<li>Facebook</li>
+						<li>Windows Media Player</li>
+						<li>VLC</li>
+						<li>Brightcove</li>
+						<li>Vimeo</li>
+						<li>Wistia</li>
+						<li>Dailymotion</li>
+						<li>Metacafe</li>
+						<li>Slideshare</li>
+						<li>Adobe Presenter</li>
+						<li>Camtasia</li>
+						<li>Kaltura MediaSpace</li>
+						<li>Panopto</li>
+						<li>Viddler</li>
+						<li>Flowplayer</li>
+						<li>thePlatform</li>
+						<li>MediaCore</li>
+						<li>Mediasite</li>
+						<li>Blip.tv</li>
+						<li>Desire2Learn</li>
+						<li>Vidyard</li>
+					</ul>
+				</article>
+			</main>
+			<footer class="footer">
+				<p>
+					&copy; 2019-2021
+					<a
+						href="https://apoorvmote.com"
+						title="Legally recognized company"
+						class="footer__link"
+						>ApoorvMote App Developer Pvt Ltd.</a
+					>
+					All rights reserved.
+				</p>
+			</footer>
+		</div>
+		<script>
+			const output = document.getElementById('srt-output'),
+				wordBreakCheckbox = document.getElementById('word-break'),
+				splitLineCheckbox = document.getElementById('subtitle-split'),
+				searchText = document.getElementById('searchText'),
+				replaceText = document.getElementById('replaceText');
+			document
+				.getElementById('convert')
+				.addEventListener('click', onConvertClick);
+			let start_time = '',
+				end_time = '',
+				sentence = '',
+				lineCount = 1,
+				wordLength = 1;
+			function onConvertClick() {
+				(output.value = ''), (lineCount = 1);
+				const b = parseInt(document.getElementById('words').value),
+					c = parseInt(document.getElementById('split-limit').value),
+					e = Math.ceil(b / c);
+				let d = [];
+				for (let a = 1; a < c; a++) d.push(a * e + 1);
+				const f = JSON.parse(document.getElementById('json-input').value),
+					{ items: a } = f.results;
+				for (let c = 0; c < a.length; c++) {
+					const { content: e } = a[c].alternatives[0];
+					if (a[c].type === 'pronunciation')
+						start_time === '' && (start_time = a[c].start_time),
+							splitLineCheckbox.checked &&
+								d.includes(wordLength) &&
+								(sentence += `\n`),
+							(end_time = a[c].end_time),
+							(sentence += `${e} `),
+							wordLength++;
+					else if (a[c].type === 'punctuation' && (e === '.' || e === '?')) {
+						if (sentence.length === 0) continue;
+						(sentence = sentence.slice(0, -1)),
+							(sentence += e),
+							generateSubtitle();
+					}
+					wordBreakCheckbox.checked && wordLength > b && generateSubtitle(),
+						c === a.length - 1 &&
+							a[c].type !== 'punctuation' &&
+							generateSubtitle();
+				}
+			}
+			function generateSubtitle() {
+				(output.value += `${lineCount}\n${formatTime(
+					start_time
+				)} --> ${formatTime(end_time)}\n${sentence}\n\n`),
+					(sentence = ''),
+					(start_time = ''),
+					(wordLength = 1),
+					lineCount++;
+			}
+			function formatTime(d) {
+				const b = d.split('.'),
+					c = new Date(null);
+				c.setSeconds(b[0]);
+				let a = b[1]?.toString() ?? '000';
+				return (
+					a.length === 1 ? (a = `${a}00`) : a.length === 2 && (a = `${a}0`),
+					`${c.toISOString().substr(11, 8)},${a}`
+				);
+			}
+			document
+				.getElementById('convert-download')
+				.addEventListener('click', onDownloadClick);
+			function onDownloadClick() {
+				const a = document.createElement('a');
+				a.setAttribute(
+					'href',
+					'data:text/plain;charset=utf-8,' + encodeURIComponent(output.value)
+				),
+					a.setAttribute('download', 'subtitle.srt'),
+					(a.style.display = 'none'),
+					document.body.appendChild(a),
+					a.click(),
+					document.body.removeChild(a);
+			}
+			document
+				.getElementById('replace-first')
+				.addEventListener('click', onReplaceFirstClick);
+			function onReplaceFirstClick() {
+				let a = output.value;
+				(a = a.replace(searchText.value, replaceText.value)),
+					(output.value = a);
+			}
+			document
+				.getElementById('replace-all')
+				.addEventListener('click', onReplaceAllClick);
+			function onReplaceAllClick() {
+				let a = output.value;
+				(a = a.replaceAll(searchText.value, replaceText.value)),
+					(output.value = a);
+			}
+		</script>
+	</body>
+</html>
