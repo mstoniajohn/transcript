@@ -42,10 +42,8 @@ function createSRT() {
 		) {
 			document.getElementById('srt').value += 'Line ' + n + '\n';
 			document.getElementById('srt').value +=
-				'Start Time: ' +
 				formatTime(start_time) +
 				' --> ' +
-				'End Time: ' +
 				formatTime(end_time) +
 				'\n' +
 				sentence +
@@ -59,10 +57,8 @@ function createSRT() {
 		if (document.getElementById('word-break').checked && t > wtb) {
 			document.getElementById('srt').value += 'Line ' + n + '\n';
 			document.getElementById('srt').value +=
-				'Start Time: ' +
 				formatTime(start_time) +
 				' --> ' +
-				'End Time: ' +
 				formatTime(end_time) +
 				'\n' +
 				sentence +
