@@ -104,11 +104,11 @@ function download(file) {
 	// Define file data
 	element.setAttribute(
 		'href',
-		'data:text/plain;charset=utf-8,' + encodeURIComponent(file)
+		'data:text/plain;charset=windows-1256,' + encodeURIComponent(file)
 	);
 
 	// add downlad attribute of hidden link
-	var download_file = 'transcript.srt';
+	var download_file = 'transcript.txt';
 	element.setAttribute('download', download_file);
 
 	document.body.appendChild(element);
